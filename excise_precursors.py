@@ -11,7 +11,7 @@ from getopt import getopt
 usage = '''
 ############################################################################################
 #                                                                                          #
-#  Usage: python 09_excise_precursors.py -a 20  -b reads_mappings.bwt -g genome.fa -c chr1 #
+#  Usage: python excise_precursors.py -a 20  -b reads_mappings.bwt -g genome.fa -c chr1    #
 #                                                                                          #
 ############################################################################################
 '''
