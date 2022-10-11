@@ -9,18 +9,18 @@ from getopt import getopt
 
 ######################################## Parameters ########################################
 usage = '''
-############################################################################################
-#                                                                                          #
-#  Usage: python excise_precursors.py -a 20  -b reads_mappings.bwt -g genome.fa -c chr1    #
-#                                                                                          #
-############################################################################################
+##############################################################################################################
+#                                                                                                            #
+#  Usage: python excise_precursors.py -a 20  -b reads_mappings.bwt -g genome.fa -c chr1 -o precursors_chr1   #
+#                                                                                                            #
+##############################################################################################################
 '''
 
 freq_min = 20
 match,umatch,unmatch,space = [8,1,-3,-10]
 count_excisions=0
 
-opts,args = getopt(sys.argv[1:],'a:b:g:h',['help'])
+opts,args = getopt(sys.argv[1:],'a:b:g:o:h',['help'])
 for opt_name, opt_value in opts:
     if opt_name in ("-h", "--help"):
         print(usage)
@@ -33,19 +33,11 @@ for opt_name, opt_value in opts:
         file_fasta = opt_value
     elif opt_name == "-c":
         chr = opt_value
+    elif opt_name == "-o":
+        out_file = opt_value
     else:
         print(usage)
         sys.exit()
-
-
-######################################## Main ########################################
-
-hash_pos = {}
-hash_genome = {}
-parse_file_bwt(file_bwt)
-parse_genome(file_fasta)
-excise_precursors(species,chr)
-
 
 ######################################## Functions ########################################
 
@@ -290,12 +282,24 @@ def parse_genome(file_fasta):
     file.close()
     return
 
-def excise_precursors(species,db):
-    file_1 = open('precursors_%s.fa'%db,'w')
-    file_2 = open('precursors_%s.coords'%db,'w')
+def excise_precursors(out_file,db):
+    file_1 = open('%s.fa'%out_file,'w')
+    file_2 = open('%s.coords'%out_file,'w')
     excise(db,hash_genome[db],file_1,file_2)
     file_1.close()
     file_2.close()
     return
+
+######################################## Main ########################################
+
+def main():
+    hash_pos = {}
+    hash_genome = {}
+    parse_file_bwt(file_bwt)
+    parse_genome(file_fasta)
+    excise_precursors(out_file,chr)
+
+if __name__=='__main__': 
+    main()
 
 ###################################################################################################
