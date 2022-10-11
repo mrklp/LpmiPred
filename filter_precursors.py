@@ -12,7 +12,7 @@ from getopt import getopt
 usage = '''
 ###########################################################################################################################################
 #                                                                                                                                         #
-#  Usage: python 13_filter_precursors.py  -n 20 -f precursors.fa -c precursors.coords  -s signature.h5 -p precursors.str  -o result.txt   #
+#  Usage: python filter_precursors.py  -n 20 -f precursors.fa -c precursors.coords  -s signature.h5 -p precursors.str  -o result.txt      #
 #                                                                                                                                         #
 ###########################################################################################################################################
 '''
