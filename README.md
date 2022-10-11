@@ -12,6 +12,10 @@ LpmiPred is a pipeline that used to identify large sets of candidate LP-miRNAs i
 
 [fastp](https://github.com/OpenGene/fastp): A tool designed to provide fast all-in-one preprocessing for FastQ files.
 
+[bowtie](https://bowtie-bio.sourceforge.net/index.shtml): An ultrafast, memory-efficient short read aligner. 
+
+[RNAfold](http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi): Predict secondary structures of single stranded RNA or DNA sequences.
+
 ## Pipeline 
 
 ![](https://github.com/mrklp/LpmiPred/blob/main/LpmiPred.png)
@@ -41,5 +45,21 @@ bowtie -p 10 -f -n 0 -a -m 5 --best --strata -x genome collapse_reads_all.fasta 
 
 # Excising potential pre-miRNA 
 python excise_precursors.py -a 20  -b reads_mappings.bwt -g genome.fa -c chr1 -o precursors_chr1
-
 ```
+
+### The third step:
+
+Discovering high confidence miRNA using the signature and structures as guidelines.
+
+```shell
+# prepare signature file
+bowtie-build --threads 10 precursors.fa precursors
+bowtie -p 10 -f -v 1 -a --best --strata --norc -x precursors  collapse_reads_all.fasta signature.bwt
+# prepare structure file
+RNAfold < precursors.fa --noPS > precursors.str
+# Convert the signal file from '.bwt' to '.h5'
+python bwt_to_h5.py -s signature.bwt -o signature.h5
+# Discovering high confidence miRNA
+python filter_precursors.py  -n 20 -f precursors.fa -c precursors.coords  -s signature.h5 -p precursors.str  -o result.txt
+```
+
