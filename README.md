@@ -4,7 +4,7 @@
 
 ## About
 
-LpmiPred is a pipeline that used to identify large sets of candidate LP-miRNAs in from small RNA (sRNA) sequencing data.
+LpmiPred is a pipeline that used to identify large sets of candidate LP-miRNAs from small RNA (sRNA) sequencing data.
 
 ## Requirements
 
