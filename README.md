@@ -10,11 +10,18 @@ LpmiPred is a pipeline that used to identify large sets of candidate LP-miRNAs f
 
 [dnapi.py](https://github.com/jnktsj/dnapi): De novo adapter prediction algorithm.
 
+```shell
+chmod u+x dnapi.py
+export PATH=/your/path/DNApi:$PATH
+```
+
 [fastp](https://github.com/OpenGene/fastp): A tool designed to provide fast all-in-one preprocessing for FastQ files.
 
 [bowtie](https://bowtie-bio.sourceforge.net/index.shtml): An ultrafast, memory-efficient short read aligner. 
 
 [RNAfold](http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi): Predict secondary structures of single stranded RNA or DNA sequences.
+
+[ripgrep](https://github.com/BurntSushi/ripgrep): ripgrep is a line-oriented search tool that recursively searches the current directory for a regex pattern. 
 
 ## Pipeline 
 
@@ -60,6 +67,6 @@ RNAfold < precursors.fa --noPS > precursors.str
 # Convert the signal file from '.bwt' to '.h5'
 python bwt_to_h5.py -s signature.bwt -o signature.h5
 # Discovering high confidence miRNA
-python filter_precursors.py  -n 20 -f precursors.fa -c precursors.coords  -s signature.h5 -p precursors.str  -o result.txt
+python filter_precursors.py  -n 20 -f precursors.fa -c precursors.coords  -s signature.h5 -p precursors.str  -o results.txt
 ```
 
