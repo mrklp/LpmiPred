@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import sys
+import re
 from getopt import getopt
 
 
@@ -15,7 +16,7 @@ usage = '''
 ######################################################################################################
 '''
 
-opts,args = getopt(sys.argv[1:],'a:o:h',['help'])
+opts,args = getopt(sys.argv[1:],'f:o:h',['help'])
 for opt_name, opt_value in opts:
     if opt_name in ("-h", "--help"):
         print(usage)

@@ -14,7 +14,7 @@ usage = '''
 '''
 
 thread_counts = 28
-opts,args = getopt(sys.argv[1:],'s:t:i:h',['help'])
+opts,args = getopt(sys.argv[1:],'s:o:h',['help'])
 for opt_name, opt_value in opts:
     if opt_name in ("-h", "--help"):
         print(usage)
@@ -40,8 +40,8 @@ def main():
                 hash_db[db] += '#'+line.strip()
     
     with h5py.File(file_out,'w') as h5_file:
-        for db in all_dict:
-            h5_file[db] = all_dict[db]
+        for db in hash_db:
+            h5_file[db] = hash_db[db]
 
 if __name__=='__main__': 
     main()

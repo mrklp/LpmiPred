@@ -18,7 +18,7 @@ usage = '''
 '''
 
 high_conf = 20
-opts,args = getopt(sys.argv[1:],'n:s:t:i:h',['help'])
+opts,args = getopt(sys.argv[1:],'n:f:c:s:p:o:h',['help'])
 for opt_name, opt_value in opts:
     if opt_name in ("-h", "--help"):
         print(usage)
@@ -242,10 +242,10 @@ def find_miRNA_query(db,hash_query):
 
 ######################################## Main ########################################
 
+hash_coords = parse_file_coords(file_coords)
+hash_seq,hash_struct,hash_mfe = parse_file_struct(file_structure)
 
 def main():
-    hash_coords = parse_file_coords(file_coords)
-    hash_seq,hash_struct,hash_mfe = parse_file_struct(file_structure)
     
     precursors_id = os.popen("grep '>' %s"%file_precursors).readlines()
     precursors_id = [id.strip()[1:] for id in precursors_id]
@@ -257,9 +257,12 @@ def main():
         
         hash_query={}
         db_query = []
-        for key in h5_file.keys():
-            if db in h5_file[key]:
-                db_query += str(h5_file[key][db][...]).split("'")[1].split('#')
+        # for key in h5_file.keys():
+            # if db in h5_file[key]:
+                # db_query += str(h5_file[key][db][...]).split("'")[1].split('#')
+        
+        if db in h5_file:        
+            db_query += str(h5_file[db][...]).split("'")[1].split('#')        
         
         if db_query == []:
             print('##%s##'%db)
@@ -282,7 +285,7 @@ def main():
                 chr,strand,beg,end = hash_coords[db]
                 file_out.write('%s\t%s\t%d\t%s\t%d\t%s\t%s\t%s\t%d\t%d\n'%(db,hash_comp["p5_seq"],p5_beg_freq,hash_comp["p3_seq"],p3_beg_freq,hash_seq[db],chr,strand,beg,end))
         
-        print('##%s##'%db)
+        # print('##%s##'%db)
     
     h5_file.close()
     file_out.close()

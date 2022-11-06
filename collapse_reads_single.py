@@ -1,6 +1,8 @@
 import numpy as np
 import os
 import sys
+from tr import tr
+from collections import Counter
 from getopt import getopt
 
 
@@ -47,7 +49,7 @@ def main():
                 write_file.write('>%s_%s_x%s\n' % (srx,i,count))
                 write_file.write('%s\n' % read)
         
-    os.system("rm %s"%fastq_id)
+    os.system("rm %s"%fasta_file)
 
 if __name__=='__main__': 
     main()

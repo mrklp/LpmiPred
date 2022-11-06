@@ -20,7 +20,7 @@ freq_min = 20
 match,umatch,unmatch,space = [8,1,-3,-10]
 count_excisions=0
 
-opts,args = getopt(sys.argv[1:],'a:b:g:o:h',['help'])
+opts,args = getopt(sys.argv[1:],'a:b:c:o:g:h',['help'])
 for opt_name, opt_value in opts:
     if opt_name in ("-h", "--help"):
         print(usage)
@@ -292,9 +292,9 @@ def excise_precursors(out_file,db):
 
 ######################################## Main ########################################
 
+hash_pos = {}
+hash_genome = {}
 def main():
-    hash_pos = {}
-    hash_genome = {}
     parse_file_bwt(file_bwt)
     parse_genome(file_fasta)
     excise_precursors(out_file,chr)
